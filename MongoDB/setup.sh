@@ -20,13 +20,14 @@ if [[ -z "$containerName" ]]; then
     containerName="mongo-db"
 fi
 
-#   Get Mongo user name
-read -p "Enter mongoDB user name (or press enter to skip): " mongoUserName
+#   Get Mongo username
+read -p "Enter mongoDB username (or press enter to skip): " mongoUserName
 
 #   Check for MongoDB setting
 if [[ -n "$mongoUserName" ]]; then
     #   Get Mongo user passowrd
     read -p "Enter mongoDB user passowrd (or press enter to skip): " mongoUserPass
+
     #   Get Mongo database name
     read -p "Enter mongoDB database name (or press enter to skip): " mongoDBName
 fi
