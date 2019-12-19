@@ -2,13 +2,24 @@
 
 echo -e "\nSetup PostgreSQL docker environment...\n"
 
+#   Get image tag
+read -p "Enter image tag (or press enter to set 'latest' as default): " imageTag
+
+#   Check for image tag
+if [[ -z "$imageTag" ]]; then
+    image="postgres:latest"
+else
+    image="postgres:$imageTag"
+fi
+
 #   Get image
-hasImage=$(docker images -q postgres)
+hasImage=$(docker images -q $image)
 
 #   Check for image
 if [[ -z "$hasImage" ]]; then
     #   Pull image
-    docker pull postgres:10.11
+    echo
+    docker pull $image
     echo
 fi
 
@@ -58,7 +69,7 @@ cat > $dockerComposeFile <<EOF
 version: '3'
 services:
     postgres-db:
-        image: 'postgres'
+        image: '$image'
         container_name: '$containerName'
         restart: always
         network_mode: 'host'

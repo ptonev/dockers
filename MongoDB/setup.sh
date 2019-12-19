@@ -2,13 +2,24 @@
 
 echo -e "\nSetup mongoDB docker environment...\n"
 
+#   Get image tag
+read -p "Enter image tag (or press enter to set 'latest' as default): " imageTag
+
+#   Check for image tag
+if [[ -z "$imageTag" ]]; then
+    image="mongo:latest"
+else
+    image="mongo:$imageTag"
+fi
+
 #   Get image
-hasImage=$(docker images -q mongo)
+hasImage=$(docker images -q $image)
 
 #   Check for image
 if [[ -z "$hasImage" ]]; then
+    echo
     #   Pull image
-    docker pull mongo
+    docker pull $image
     echo
 fi
 
@@ -82,8 +93,9 @@ cat > $dockerComposeFile <<EOF
 version: '3'
 services:
     mongo-db:
-        image: 'mongo'
+        image: '$image'
         container_name: '$containerName'
+        restart: always
         network_mode: 'host'
         ports:
             - '27017-27019:27017-27019'

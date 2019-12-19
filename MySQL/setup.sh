@@ -2,13 +2,24 @@
 
 echo -e "\nSetup MySQL docker environment...\n"
 
+#   Get image tag
+read -p "Enter image tag (or press enter to set 'latest' as default): " imageTag
+
+#   Check for image tag
+if [[ -z "$imageTag" ]]; then
+    image="mysql:latest"
+else
+    image="mysql:$imageTag"
+fi
+
 #   Get image
-hasImage=$(docker images -q mysql)
+hasImage=$(docker images -q $image)
 
 #   Check for image
 if [[ -z "$hasImage" ]]; then
     #   Pull image
-    docker pull mysql
+    echo
+    docker pull $image
     echo
 fi
 
@@ -37,7 +48,7 @@ cat > $dockerComposeFile <<EOF
 version: '3'
 services:
     mysql-db:
-        image: 'mysql'
+        image: '$image'
         container_name: '$containerName'
         restart: always
         network_mode: 'host'
