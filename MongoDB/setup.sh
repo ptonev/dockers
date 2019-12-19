@@ -2,22 +2,22 @@
 
 echo -e "\nSetup mongoDB docker environment...\n"
 
-#   Get mongoDB image
-hasMongoImage=$(docker images -q mongo)
+#   Get image
+hasImage=$(docker images -q mongo)
 
-#   Check for mongoDB image
-if [[ -z "$hasMongoImage" ]]; then
-    #   Pull mongoDB image
+#   Check for image
+if [[ -z "$hasImage" ]]; then
+    #   Pull image
     docker pull mongo
     echo
 fi
 
 #   Get container name
-read -p "Enter mongoDB container name (or press enter to set 'mongo-db' as default): " mongoContainerName
+read -p "Enter container name (or press enter to set 'mongo-db' as default): " containerName
 
 #   Check for container name
-if [[ -z "$mongoContainerName" ]]; then
-    mongoContainerName="mongo-db"
+if [[ -z "$containerName" ]]; then
+    containerName="mongo-db"
 fi
 
 #   Get Mongo user name
@@ -31,19 +31,21 @@ if [[ -n "$mongoUserName" ]]; then
     read -p "Enter mongoDB database name (or press enter to skip): " mongoDBName
 fi
 
-#   Compose init-mongo file name
+#   Set file name
 initFile=./init-mongo.js
 
 #   Check file exists
 if [[ -e $initFile ]]; then
+    #   Remove file
     rm $initFile
 fi
 
-#   Compose file name
+#   Set file name
 dockerComposeFile=./docker-compose.yml
 
 #   Check file exists
 if [[ -e $dockerComposeFile ]]; then
+    #   Remove file
     rm $dockerComposeFile
 fi
 
@@ -80,7 +82,7 @@ version: '3'
 services:
     mongo-db:
         image: 'mongo'
-        container_name: '$mongoContainerName'
+        container_name: '$containerName'
         network_mode: 'host'
         ports:
             - '27017-27019:27017-27019'
@@ -115,7 +117,7 @@ fileName=./login.sh
 #   Create login.sh
 cat > $fileName <<EOF
 #!/bin/bash
-docker exec -it $mongoContainerName bash
+docker exec -it $containerName bash
 EOF
 chmod a+x $fileName
 
@@ -124,7 +126,7 @@ fileName=./logs.sh
 #   Create logs.sh
 cat > $fileName <<EOF
 #!/bin/bash
-docker container logs $mongoContainerName
+docker container logs $containerName
 EOF
 chmod a+x $fileName
 
@@ -135,8 +137,7 @@ Setup done.
 
 To start (up) container type: 'docker-compose up -d' or './up.sh'
 To stop (down) container type: 'docker-compose down' or './down.sh'
-To log in (exec) into container type: 'docker exec -it $mongoContainerName bash' or './login.sh'
-To view logs for container type: 'docker container logs $mongoContainerName' or './logs.sh'
+To log in (exec) into container type: 'docker exec -it $containerName bash' or './login.sh'
+To view logs for container type: 'docker container logs $containerName' or './logs.sh'
 
 EOF
-
