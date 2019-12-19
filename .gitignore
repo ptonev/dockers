@@ -4,6 +4,5 @@ down.sh
 login.sh
 logs.sh
 
-/config
-/volume
-
+config/
+volume/
