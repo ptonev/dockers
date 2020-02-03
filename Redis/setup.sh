@@ -98,7 +98,7 @@ fileName=./login.sh
 #   Create login.sh
 cat > $fileName <<EOF
 #!/bin/bash
-docker exec -it $containerName bash
+docker exec -it $containerName sh
 EOF
 chmod a+x $fileName
 
