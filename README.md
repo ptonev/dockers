@@ -11,6 +11,11 @@ Go to product folder and start
 ./setup.sh
 ```
 
+#### TODO
+To add MariaDB
+To add MySQL Admin
+To add pgAdmin
+
 ## Authors
 Petio Tonev
 
