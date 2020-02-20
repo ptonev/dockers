@@ -15,6 +15,7 @@ Go to product folder and start
 To add MariaDB
 To add MySQL Admin
 To add pgAdmin
+To add SQLite
 
 ## Authors
 Petio Tonev
