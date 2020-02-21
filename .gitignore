@@ -5,4 +5,5 @@ login.sh
 logs.sh
 
 config/
+!config/notes.txt
 volume/

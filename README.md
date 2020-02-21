@@ -11,13 +11,18 @@ Go to product folder and start
 ./setup.sh
 ```
 
+#### Notes
+
+* pgAdmin4
+Folder ```config``` in need to have full permissions for read/write/execute.
+
 #### TODO
-To add MariaDB
-To add MySQL Admin
-To add pgAdmin
-To add SQLite
+* To add SQLite
+* To add SQLite - some admin
+* To add MariaDB
+* To add MySQL Admin
 
 ## Authors
 Petio Tonev
 
-#### Copyright © 2019
+#### Copyright © 2020

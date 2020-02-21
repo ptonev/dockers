@@ -80,8 +80,7 @@ $environment
         ports:
             - '8002:8002'
         volumes:
-            - ./config:/root/.pgadmin
-#            - ./config:/var/lib/pgadmin
+           - ./config:/var/lib/pgadmin
         restart: unless-stopped
 EOF
 
