@@ -17,8 +17,6 @@ Go to product folder and start
 Folder ```config``` in need to have full permissions for read/write/execute.
 
 #### TODO
-* To add SQLite
-* To add SQLite - some admin
 * To add MariaDB
 * To add MySQL Admin
 
