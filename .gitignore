@@ -4,6 +4,6 @@ down.sh
 login.sh
 logs.sh
 
-config/
+config/*
 !config/notes.txt
 volume/
