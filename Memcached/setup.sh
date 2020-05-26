@@ -85,6 +85,24 @@ docker-compose down
 EOF
 chmod a+x $fileName
 
+#   Compose start.sh file name
+fileName=./start.sh
+#   Create start.sh
+cat > $fileName <<EOF
+#!/bin/bash
+docker-compose start
+EOF
+chmod a+x $fileName
+
+#   Compose start.sh file name
+fileName=./stop.sh
+#   Create stop.sh
+cat > $fileName <<EOF
+#!/bin/bash
+docker-compose stop
+EOF
+chmod a+x $fileName
+
 #   Compose login.sh file name
 fileName=./login.sh
 #   Create login.sh

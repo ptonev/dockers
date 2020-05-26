@@ -1,6 +1,8 @@
 docker-compose.yml
 up.sh
 down.sh
+start.sh
+stop.sh
 login.sh
 logs.sh
 
