@@ -50,7 +50,8 @@ services:
     mysql-db:
         image: '$image'
         container_name: '$containerName'
-        restart: always
+        # restart: always
+        restart: unless-stopped
         network_mode: 'host'
         ports:
             - '3306:3306'

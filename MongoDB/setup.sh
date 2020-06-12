@@ -95,7 +95,8 @@ services:
     mongo-db:
         image: '$image'
         container_name: '$containerName'
-        restart: always
+        # restart: always
+        restart: unless-stopped
         network_mode: 'host'
         ports:
             - '27017-27019:27017-27019'
