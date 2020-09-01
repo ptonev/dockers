@@ -127,8 +127,10 @@ cat << EOF
 
 Setup done.
 
-To start (up) container type: 'docker-compose up -d' or './up.sh'
-To stop (down) container type: 'docker-compose down' or './down.sh'
+To up container type: 'docker-compose up -d' or './up.sh'
+To down container type: 'docker-compose down' or './down.sh'
+To start container type: 'docker-compose start' or './start.sh'
+To stop container type: 'docker-compose stop' or './stop.sh'
 To log in (exec) into container type: 'docker exec -it $containerName bash' or './login.sh'
 To view logs for container type: 'docker container logs $containerName' or './logs.sh'
 

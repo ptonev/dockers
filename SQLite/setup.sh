@@ -1,15 +1,15 @@
 #!/bin/bash
 
-echo -e "\nSetup MailCatcher docker environment...\n"
+echo -e "\nSetup SQLite docker environment...\n"
 
 #   Get image tag
-read -p "Enter image tag (or press enter to set '0.7.1' as default): " imageTag
+read -p "Enter image tag (or press enter to set 'latest' as default): " imageTag
 
 #   Check for image tag
 if [[ -z "$imageTag" ]]; then
-    image="dockage/mailcatcher:0.7.1"
+    image="nouchka/sqlite3:latest"
 else
-    image="dockage/mailcatcher:$imageTag"
+    image="nouchka/sqlite3:$imageTag"
 fi
 
 #   Get image
@@ -24,27 +24,11 @@ if [[ -z "$hasImage" ]]; then
 fi
 
 #   Get container name
-read -p "Enter container name (or press enter to set 'mail-catcher' as default): " containerName
+read -p "Enter container name (or press enter to set 'sqlite3-db' as default): " containerName
 
 #   Check for container name
 if [[ -z "$containerName" ]]; then
-    containerName="mail-catcher"
-fi
-
-#   Get GUI port
-read -p "Enter GUI port (or press enter to set '1080' as default): " mongoUserPass
-
-#   Check for GUI port
-if [[ -z "$guiPort" ]]; then
-    guiPort="1080"
-fi
-
-#   Get SMTP port
-read -p "Enter SMTP port (or press enter to set '1025' as default): " mongoUserPass
-
-#   Check for SMTP port
-if [[ -z "$smtpPort" ]]; then
-    smtpPort="1025"
+    containerName="sqlite-db"
 fi
 
 #   Set file name
@@ -56,18 +40,35 @@ if [[ -e $dockerComposeFile ]]; then
     rm $dockerComposeFile
 fi
 
+#   Set default value on environment and seedingScripts
+environment=""
+seedingScripts=""
+
+#   Check for Redis passowrd setting
+if [[ -n "$redisPass" ]]; then
+    #   Compose environment as per settings
+    environment="        command: redis-server --requirepass $redisPass"
+else
+    #   Compose environment as per settings
+    environment="        command: redis-server"
+fi
+
 #   Create init-mongo.js
 cat > $dockerComposeFile <<EOF
-version: "3"
+version: '3'
 services:
-  mail-catcher:
+  sqlite3-db:
     image: '$image'
     container_name: '$containerName'
-    restart: on-failure:10
     network_mode: 'host'
+    # restart: always
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./volume:/root/db/
     ports:
-      - "$guiPort:$guiPort"
-      - "$smtpPort:$smtpPort"
+      - '9000:9000'
 EOF
 
 #   Compose up.sh file name
@@ -111,7 +112,7 @@ fileName=./login.sh
 #   Create login.sh
 cat > $fileName <<EOF
 #!/bin/bash
-docker exec -it $containerName bash
+docker exec -it $containerName sh
 EOF
 chmod a+x $fileName
 
@@ -135,15 +136,5 @@ To start container type: 'docker-compose start' or './start.sh'
 To stop container type: 'docker-compose stop' or './stop.sh'
 To log in (exec) into container type: 'docker exec -it $containerName bash' or './login.sh'
 To view logs for container type: 'docker container logs $containerName' or './logs.sh'
-
-Laravel .ENV example:
-MAIL_DRIVER=smtp
-MAIL_HOST=127.0.0.1
-MAIL_PORT=1025
-MAIL_USERNAME=null
-MAIL_PASSWORD=null
-MAIL_FROM_ADDRESS=from@example.com
-MAIL_FROM_NAME=Example
-MAIL_ENCRYPTION=
 
 EOF
