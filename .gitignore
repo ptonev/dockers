@@ -9,3 +9,4 @@ logs.sh
 config/
 !config/notes.txt
 volume/
+ftp/
