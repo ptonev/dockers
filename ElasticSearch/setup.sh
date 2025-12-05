@@ -101,43 +101,47 @@ EOF
 #   Compose up.sh file name
 fileName=./up.sh
 #   Create up.sh
-cat > $fileName <<EOF
+cat > $fileName <<'EOF'
 #!/bin/bash
-docker-compose up -d
+compose(){ command -v docker-compose >/dev/null && docker-compose "$@" || docker compose "$@"; }
+compose up -d
 EOF
 chmod a+x $fileName
 
 #   Compose down.sh file name
 fileName=./down.sh
 #   Create down.sh
-cat > $fileName <<EOF
+cat > $fileName <<'EOF'
 #!/bin/bash
-docker-compose down
+compose(){ command -v docker-compose >/dev/null && docker-compose "$@" || docker compose "$@"; }
+compose down
 EOF
 chmod a+x $fileName
 
 #   Compose start.sh file name
 fileName=./start.sh
 #   Create start.sh
-cat > $fileName <<EOF
+cat > $fileName <<'EOF'
 #!/bin/bash
-docker-compose start
+compose(){ command -v docker-compose >/dev/null && docker-compose "$@" || docker compose "$@"; }
+compose start
 EOF
 chmod a+x $fileName
 
 #   Compose start.sh file name
 fileName=./stop.sh
 #   Create stop.sh
-cat > $fileName <<EOF
+cat > $fileName <<'EOF'
 #!/bin/bash
-docker-compose stop
+compose(){ command -v docker-compose >/dev/null && docker-compose "$@" || docker compose "$@"; }
+compose stop
 EOF
 chmod a+x $fileName
 
 #   Compose login.sh file name
 fileName=./login.sh
 #   Create login.sh
-cat > $fileName <<EOF
+cat > $fileName <<'EOF'
 #!/bin/bash
 docker exec -it $containerElasticSearchName bash
 EOF
@@ -146,7 +150,7 @@ chmod a+x $fileName
 #   Compose login.sh file name
 fileName=./login-kibana.sh
 #   Create login.sh
-cat > $fileName <<EOF
+cat > $fileName <<'EOF'
 #!/bin/bash
 docker exec -it $containerKibanaName bash
 EOF
@@ -155,7 +159,7 @@ chmod a+x $fileName
 #   Compose logs.sh file name
 fileName=./logs.sh
 #   Create logs.sh
-cat > $fileName <<EOF
+cat > $fileName <<'EOF'
 #!/bin/bash
 docker container logs $containerElasticSearchName
 EOF
@@ -164,7 +168,7 @@ chmod a+x $fileName
 #   Compose logs.sh file name
 fileName=./logs-kibana.sh
 #   Create logs.sh
-cat > $fileName <<EOF
+cat > $fileName <<'EOF'
 #!/bin/bash
 docker container logs $containerKibanaName
 EOF

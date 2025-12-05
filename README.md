@@ -1,8 +1,8 @@
 # Dockers
 
-#### Requirements
+#### Minimum requirements
 * Docker version 18.09.7
-* docker-compose version 1.22.0
+* docker-compose version 1.22.0 (for Docker Engine ≥ 20.10.13 this is not mandatory)
 
 #### Installation
 
@@ -54,4 +54,4 @@ Folder ```config``` in need to have full permissions for read/write/execute.
 ## Authors
 Petio Tonev
 
-#### Copyright © 2020
+#### Copyright © 2025
