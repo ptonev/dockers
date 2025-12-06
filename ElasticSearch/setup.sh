@@ -141,7 +141,7 @@ chmod a+x $fileName
 #   Compose login.sh file name
 fileName=./login.sh
 #   Create login.sh
-cat > $fileName <<'EOF'
+cat > $fileName <<EOF
 #!/bin/bash
 docker exec -it $containerElasticSearchName bash
 EOF
@@ -150,7 +150,7 @@ chmod a+x $fileName
 #   Compose login.sh file name
 fileName=./login-kibana.sh
 #   Create login.sh
-cat > $fileName <<'EOF'
+cat > $fileName <<EOF
 #!/bin/bash
 docker exec -it $containerKibanaName bash
 EOF
@@ -159,7 +159,7 @@ chmod a+x $fileName
 #   Compose logs.sh file name
 fileName=./logs.sh
 #   Create logs.sh
-cat > $fileName <<'EOF'
+cat > $fileName <<EOF
 #!/bin/bash
 docker container logs $containerElasticSearchName
 EOF
@@ -168,7 +168,7 @@ chmod a+x $fileName
 #   Compose logs.sh file name
 fileName=./logs-kibana.sh
 #   Create logs.sh
-cat > $fileName <<'EOF'
+cat > $fileName <<EOF
 #!/bin/bash
 docker container logs $containerKibanaName
 EOF

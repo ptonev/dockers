@@ -111,7 +111,7 @@ chmod a+x $fileName
 #   Compose login.sh file name
 fileName=./login.sh
 #   Create login.sh
-cat > $fileName <<'EOF'
+cat > $fileName <<EOF
 #!/bin/bash
 docker exec -it $containerName sh
 EOF
@@ -120,7 +120,7 @@ chmod a+x $fileName
 #   Compose logs.sh file name
 fileName=./logs.sh
 #   Create logs.sh
-cat > $fileName <<'EOF'
+cat > $fileName <<EOF
 #!/bin/bash
 docker container logs $containerName
 EOF
